@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TP3_teste", "TP3_teste\TP3_teste.csproj", "{2B52CB2F-3FE9-4D72-AE48-69BD8F0EBEB5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{50ACD80F-0718-435F-AB2C-A7F940277864} = {50ACD80F-0718-435F-AB2C-A7F940277864}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelo", "Modelo\Modelo.csproj", "{50ACD80F-0718-435F-AB2C-A7F940277864}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B52CB2F-3FE9-4D72-AE48-69BD8F0EBEB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B52CB2F-3FE9-4D72-AE48-69BD8F0EBEB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B52CB2F-3FE9-4D72-AE48-69BD8F0EBEB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B52CB2F-3FE9-4D72-AE48-69BD8F0EBEB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50ACD80F-0718-435F-AB2C-A7F940277864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50ACD80F-0718-435F-AB2C-A7F940277864}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50ACD80F-0718-435F-AB2C-A7F940277864}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50ACD80F-0718-435F-AB2C-A7F940277864}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {38D535A7-415B-47A8-AD7A-316B5A60E785}
+	EndGlobalSection
+EndGlobal
