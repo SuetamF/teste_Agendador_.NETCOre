@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
+using System.Globalization;
 
 namespace Modelo
 {
@@ -31,5 +33,63 @@ namespace Modelo
             Pessoas.Add(pessoa);
         }
 
+        public static void CriarArquivo()
+        {
+
+            var diretorio = @"C:\MeuDir";
+            var nomeArquivo = "Pessoas.csv";
+            var caminhoArquivo = Path.Combine(diretorio, nomeArquivo);
+ 
+            if (!Directory.Exists(diretorio))
+            {
+                Directory.CreateDirectory(diretorio);
+            }
+            else
+            {
+                Console.WriteLine("AVISO: O diretório já existe.");
+            }
+
+            var csv = new StringBuilder();
+
+            if (!File.Exists(caminhoArquivo))
+            {
+                csv.AppendLine("Nome;Sobrenome;Data de Nascimento;Data de Aniversario");
+                File.WriteAllText(caminhoArquivo, csv.ToString());
+            }
+
+            csv.Clear();
+
+        }
+
+        public static void LerArquivo()
+        {
+
+            var diretorio = @"C:\MeuDir";
+            var nomeArquivo = "Pessoas.csv";
+            var caminhoArquivo = Path.Combine(diretorio, nomeArquivo);
+
+            var linhas = File.ReadAllLines(caminhoArquivo);
+            ArraySegment<string> linhasSegmento = new ArraySegment<string>(linhas);
+            var dados = linhasSegmento.Slice(1);
+            foreach (var linha in dados)
+            {
+                Pessoa p = new Pessoa();
+                Char[] tokens = new Char[] { ';', ',', '\n' };
+                string[] dadosPessoa = linha.Split(tokens);
+
+                int nomeIndex = 0;
+                int sobrenomeIndex = 1;
+                int nascimentoIndex = 2;
+                int aniversarioIndex = 3;
+
+                p.Nome = dadosPessoa[nomeIndex];
+                p.Sobrenome = dadosPessoa[sobrenomeIndex];
+                p.DatadeNascimento = DateTime.ParseExact(dadosPessoa[nascimentoIndex], "dd/MM/yyyy", new CultureInfo("pt-BR"));
+                p.DatadeAniver = DateTime.ParseExact(dadosPessoa[aniversarioIndex], "dd/MM/yyyy", new CultureInfo("pt-BR"));
+
+                Pessoas.Add(p);
+            }
+        }
     }
+    
 }

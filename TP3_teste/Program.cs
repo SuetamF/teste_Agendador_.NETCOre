@@ -1,16 +1,23 @@
 ﻿using Modelo;
 using System;
+using System.IO;
+using System.Text;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace TP3
+namespace Agendador
 {
     class Program
     {
 
         static void Main(string[] args)
         {
+            RepoPessoa.CriarArquivo();
+
             RepoPessoa.Pessoas = new List<Pessoa>();
+
+            RepoPessoa.LerArquivo();
+
             while (true)
             {
                 Menu();
@@ -37,15 +44,17 @@ namespace TP3
                     }
                     Console.WriteLine("Selecione uma pessoa da lista acima:");
                     var selecao = Int32.Parse(Console.ReadLine());
-                    var pesoaEscolhida = resultados[selecao];
-                    Console.WriteLine($"Nome:{pesoaEscolhida.Nome} {pesoaEscolhida.Sobrenome} Data de Aniversario:{pesoaEscolhida.DatadeAniver}");
-                    TimeSpan intervalo = pesoaEscolhida.DatadeAniver - DateTime.Now;
-                    if (intervalo.Days < 0)
+                    var pessoaEscolhida = resultados[selecao];
+                    Console.WriteLine($" A data do proximo Aniversario de {pessoaEscolhida.Nome} {pessoaEscolhida.Sobrenome} é:{pessoaEscolhida.DatadeAniver}");
+                    var diasAteAniversario = pessoaEscolhida.CalculoDeTempo();
+                    if (diasAteAniversario == 0)
                     {
-                        DateTime ProximoAniver = new DateTime(DateTime.Now.Year + 1, pesoaEscolhida.DatadeAniver.Month, pesoaEscolhida.DatadeAniver.Day);
-                        intervalo = ProximoAniver - DateTime.Now;
+                        Console.WriteLine(pessoaEscolhida.Parabens());
                     }
-                    Console.WriteLine($"{intervalo.Days} Dias ate o Aniversario dessa Pessoa");
+                    else
+                    {
+                        Console.WriteLine($"Faltam {diasAteAniversario} dia(s) para o proximo aniversario de {pessoaEscolhida.Nome}");
+                    }
                     break;
                 case 2:
                     //Adicionar
@@ -57,8 +66,23 @@ namespace TP3
                     Console.WriteLine("Informe a data de nascimento da pessoa:");
                     var data = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", new CultureInfo("pt-BR"));
                     var data2 = new DateTime(DateTime.Now.Year, data.Month, data.Day);
+                    if (data2.Month < DateTime.Now.Month && data2.Day < DateTime.Now.Day ) 
+                    {
+                        DateTime dataNiver = data2.AddYears(1);
+                        data2 = dataNiver;
+                    }
+                    String aniversario = (data2.ToString("dd/MM/yyyy"));
+                    String nascimento = (data.ToString("dd/MM/yyyy"));
                     Pessoa pessoa = new Pessoa() { Nome = nome, Sobrenome = sobrenome, DatadeNascimento = data, DatadeAniver = data2 };
                     RepoPessoa.InserirPessoa(pessoa);
+
+                    var diretorio = @"C:\MeuDir";
+                    var nomeArquivo = "Pessoas.csv";
+                    var caminhoArquivo = Path.Combine(diretorio, nomeArquivo);
+                    var csv = new StringBuilder();
+                    csv.AppendLine($"{nome};{sobrenome};{nascimento};{aniversario}");
+                    File.AppendAllText(caminhoArquivo, csv.ToString());
+
                     break;
                 case 3:
                     //Sair

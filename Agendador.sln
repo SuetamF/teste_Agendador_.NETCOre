@@ -3,12 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TP3_teste", "TP3_teste\TP3_teste.csproj", "{2B52CB2F-3FE9-4D72-AE48-69BD8F0EBEB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Agendador", "TP3_teste\Agendador.csproj", "{2B52CB2F-3FE9-4D72-AE48-69BD8F0EBEB5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{50ACD80F-0718-435F-AB2C-A7F940277864} = {50ACD80F-0718-435F-AB2C-A7F940277864}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelo", "Modelo\Modelo.csproj", "{50ACD80F-0718-435F-AB2C-A7F940277864}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modelo", "Modelo\Modelo.csproj", "{50ACD80F-0718-435F-AB2C-A7F940277864}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
