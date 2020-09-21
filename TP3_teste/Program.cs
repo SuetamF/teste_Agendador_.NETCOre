@@ -16,7 +16,7 @@ namespace Agendador
 
             RepoPessoa.Pessoas = new List<Pessoa>();
 
-            RepoPessoa.LerArquivo();
+            RepoPessoa.ArquivoParaLista();
 
             while (true)
             {
@@ -32,6 +32,7 @@ namespace Agendador
             {
                 case 1:
                     //Pesquisar
+                    Console.Clear();
                     Console.WriteLine("Pesquisar pessoas");
                     Console.WriteLine("Informe o nome da pessoa:");
                     var busca = Console.ReadLine();
@@ -42,7 +43,7 @@ namespace Agendador
                         Console.WriteLine($"{i} - {p.Nome} {p.Sobrenome}");
                         i++;
                     }
-                    Console.WriteLine("Selecione uma pessoa da lista acima:");
+                    Console.WriteLine("Digite o Indice de uma pessoa da lista acima para selecionar:");
                     var selecao = Int32.Parse(Console.ReadLine());
                     var pessoaEscolhida = resultados[selecao];
                     Console.WriteLine($" A data do proximo Aniversario de {pessoaEscolhida.Nome} {pessoaEscolhida.Sobrenome} é:{pessoaEscolhida.DatadeAniver}");
@@ -58,6 +59,7 @@ namespace Agendador
                     break;
                 case 2:
                     //Adicionar
+                    Console.Clear();
                     Console.WriteLine("Adicionar nova pessoa");
                     Console.WriteLine("Informe o nome da pessoa:");
                     var nome = Console.ReadLine();
@@ -82,9 +84,55 @@ namespace Agendador
                     var csv = new StringBuilder();
                     csv.AppendLine($"{nome};{sobrenome};{nascimento};{aniversario}");
                     File.AppendAllText(caminhoArquivo, csv.ToString());
+                    csv.Clear();
 
                     break;
                 case 3:
+                    //Edit
+                    Console.Clear();
+                    int j = 0;
+                    foreach (var p in RepoPessoa.Pessoas)
+                    {
+                        Console.WriteLine($"{j} - {p.Nome} {p.Sobrenome} {p.DatadeNascimento}");
+                        j++;
+                    }
+                    Console.WriteLine("Digite o Indice de uma pessoa da lista acima para editada-la:");
+                    var selecaoE = Int32.Parse(Console.ReadLine());
+                    var pessoaEscolhidaE = RepoPessoa.Pessoas[selecaoE];
+                    Console.WriteLine("Informe o novo nome da pessoa:");
+                    var nomeE = Console.ReadLine();
+                    Console.WriteLine("Informe o novo sobrenome da pessoa:");
+                    var sobrenomeE = Console.ReadLine();
+                    Console.WriteLine("Informe a nova data de nascimento da pessoa:");
+                    var dataE = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", new CultureInfo("pt-BR"));
+                    var data2E = new DateTime(DateTime.Now.Year, dataE.Month, dataE.Day);
+                    if (data2E.Month < DateTime.Now.Month && data2E.Day < DateTime.Now.Day)
+                    {
+                        DateTime dataNiver = data2E.AddYears(1);
+                        data2E = dataNiver;
+                    }
+                    pessoaEscolhidaE.Nome = nomeE;
+                    pessoaEscolhidaE.Sobrenome = sobrenomeE;
+                    pessoaEscolhidaE.DatadeNascimento = dataE;
+                    pessoaEscolhidaE.DatadeAniver = data2E;
+                    RepoPessoa.ListaParaArquivo();
+                    break;
+                case 4:
+                    //Delete
+                    Console.Clear();
+                    int y = 0;
+                    foreach (var p in RepoPessoa.Pessoas)
+                    {
+                        Console.WriteLine($"{y} - {p.Nome} {p.Sobrenome}");
+                        y++;
+                    }
+                    Console.WriteLine("Digite o Indice de uma pessoa da lista acima para a deletar:");
+                    var selecaoD = Int32.Parse(Console.ReadLine());
+                    var pessoaEscolhidaD = RepoPessoa.Pessoas[selecaoD];
+                    RepoPessoa.Pessoas.Remove(pessoaEscolhidaD);
+                    RepoPessoa.ListaParaArquivo();
+                    break;
+                case 5:
                     //Sair
                     Console.WriteLine("Fim do Programa.");
                     Environment.Exit(0);
@@ -97,11 +145,14 @@ namespace Agendador
 
         private static void Menu()
         {
+            Console.Clear();
             Console.WriteLine("Gerenciador de Aniversário");
             Console.WriteLine("Selecione uma opção abaixo:");
             Console.WriteLine("1 -> Pesquisar pessoas");
             Console.WriteLine("2 -> Adicionar nova pessoa");
-            Console.WriteLine("3 -> Sair");
+            Console.WriteLine("3 -> Editar Pessoa");
+            Console.WriteLine("4 -> Deletar Pessoa");
+            Console.WriteLine("5 -> Sair");
         }
     }
 }

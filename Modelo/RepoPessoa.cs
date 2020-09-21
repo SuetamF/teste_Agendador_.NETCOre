@@ -61,7 +61,7 @@ namespace Modelo
 
         }
 
-        public static void LerArquivo()
+        public static void ArquivoParaLista()
         {
 
             var diretorio = @"C:\MeuDir";
@@ -90,6 +90,27 @@ namespace Modelo
                 Pessoas.Add(p);
             }
         }
+        //Rescrever arquivo lendo lista
+        public static void ListaParaArquivo()
+        {
+            var diretorio = @"C:\MeuDir";
+            var nomeArquivo = "Pessoas.csv";
+            var caminhoArquivo = Path.Combine(diretorio, nomeArquivo);
+            var csv = new StringBuilder();
+            csv.AppendLine("Nome;Sobrenome;Data de Nascimento;Data de Aniversario");
+
+            foreach (var p in Pessoas)
+            {
+                var nome = p.Nome;
+                var sobrenome = p.Sobrenome;
+                String nascimento = (p.DatadeNascimento.ToString("dd/MM/yyyy"));
+                String aniversario = (p.DatadeAniver.ToString("dd/MM/yyyy"));
+                csv.AppendLine($"{nome};{sobrenome};{nascimento};{aniversario}");
+            }
+            File.WriteAllText(caminhoArquivo, csv.ToString());
+            csv.Clear();
+        }
+        
     }
-    
+
 }
